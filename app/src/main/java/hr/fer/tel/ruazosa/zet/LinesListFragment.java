@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
 import java.util.List;
@@ -32,7 +31,7 @@ public class LinesListFragment extends OrmLiteListFragment {
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         List<Tram> linesList = null;
@@ -45,7 +44,10 @@ public class LinesListFragment extends OrmLiteListFragment {
 
         setListAdapter(new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_activated_1, linesList));
+    }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
         View departuresFrame = getActivity().findViewById(R.id.departures_frame);
         dualPane = departuresFrame != null && departuresFrame.getVisibility() == View.VISIBLE;
 

@@ -72,4 +72,9 @@ public class Station {
     public void setTramBus(boolean tramBus) {
         this.tramBus = tramBus;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

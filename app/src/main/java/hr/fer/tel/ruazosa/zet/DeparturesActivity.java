@@ -15,7 +15,7 @@ public class DeparturesActivity extends ActionBarActivity {
             return;
         }
 
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null) { //TODO ?
 
             DeparturesFragment departures = new DeparturesFragment();
             departures.setArguments(getIntent().getExtras());

@@ -8,6 +8,7 @@ import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @DatabaseTable(tableName = "arrival")
@@ -61,5 +62,11 @@ public class Arrival {
 
     public void setIdStation(Station idStation) {
         this.idStation = idStation;
+    }
+
+    @Override
+    public String toString() {
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        return format.format(time);
     }
 }

@@ -11,7 +11,7 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 import hr.fer.tel.ruazosa.model.Ride;
 import hr.fer.tel.ruazosa.model.Tram;
 
-public class MainActivity extends OrmLiteActionBarActivity {
+public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

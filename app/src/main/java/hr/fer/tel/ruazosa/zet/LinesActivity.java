@@ -18,8 +18,7 @@ public class LinesActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_show_lines, menu);
 
-        //TODO actionbar search
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        //TODO SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
 
         return true;
     }

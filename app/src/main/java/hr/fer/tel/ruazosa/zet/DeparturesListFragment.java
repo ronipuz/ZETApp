@@ -2,18 +2,15 @@ package hr.fer.tel.ruazosa.zet;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import hr.fer.tel.ruazosa.model.Ride;
-import hr.fer.tel.ruazosa.model.Tram;
 
 public class DeparturesListFragment extends OrmLiteListFragment {
 
@@ -32,7 +29,7 @@ public class DeparturesListFragment extends OrmLiteListFragment {
         return fragment;
     }
 
-    @Override //TODO onActivityCreated ?
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -42,7 +39,7 @@ public class DeparturesListFragment extends OrmLiteListFragment {
             Boolean departure_return = getArguments().getBoolean(DEPARTURE_RETURN);
             int lineID = getArguments().getInt(LINE_ID);
             RuntimeExceptionDao<Ride, Integer> departureDao = getHelper().getRuntimeRideDao();
-            //TODO upit
+            //TODO departuresList = departureDao....
         }
 
         setListAdapter(new ArrayAdapter<>(getActivity(),
@@ -51,10 +48,7 @@ public class DeparturesListFragment extends OrmLiteListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-
-        //TODO dohvat id-a polaska
-        int departureID = position;
-
+        int departureID = ((Ride) l.getAdapter().getItem(position)).getIdRide();
         showDetails(departureID);
     }
 
