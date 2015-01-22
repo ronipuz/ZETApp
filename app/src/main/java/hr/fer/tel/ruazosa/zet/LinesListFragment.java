@@ -10,6 +10,9 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import hr.fer.tel.ruazosa.data.DatabaseHelper;
+import hr.fer.tel.ruazosa.model.Tram;
+
 public class LinesListFragment extends ListFragment {
 
     private static final String TRAM_BUS = "tram_bus";
@@ -31,15 +34,15 @@ public class LinesListFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ArrayList<String> linesList = new ArrayList<>();
+        ArrayList<Tram> linesList = new ArrayList<>();
 
         if (getArguments() != null) {
             String tram_bus = getArguments().getString(TRAM_BUS);
 
-            //TODO dohvat liste linija iz baze
+            /*TODO dohvat liste linija iz baze
             for (int i = 0; i < 5; i++) {
                 linesList.add(tram_bus + " " + (i + 1));
-            }
+            }*/
         }
 
         setListAdapter(new ArrayAdapter<>(getActivity(),

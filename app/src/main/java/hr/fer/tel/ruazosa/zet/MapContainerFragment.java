@@ -2,30 +2,36 @@ package hr.fer.tel.ruazosa.zet;
 
 import android.app.Fragment;
 import android.content.res.AssetManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.maps.model.Tile;
-import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.android.gms.maps.model.TileProvider;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class MapContainerFragment extends Fragment implements OnMapReadyCallback{
+public class MapContainerFragment extends Fragment implements OnMapReadyCallback,
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
 
     private static final String DEPARTURE_ID = "departureID";
+
+    private GoogleApiClient apiClient;
+    private Location lastLocation;
+    private LatLng currentLocation;
 
     public MapContainerFragment() {}
 
@@ -39,6 +45,13 @@ public class MapContainerFragment extends Fragment implements OnMapReadyCallback
 
             //TODO dohvat liste polazaka iz baze
         }
+
+        apiClient = new GoogleApiClient.Builder(this.getActivity())
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        apiClient.connect();
 
         GoogleMapOptions mapOptions = new GoogleMapOptions();
         //TODO mapOptions.mapType(GoogleMap.MAP_TYPE_NONE);
@@ -54,14 +67,12 @@ public class MapContainerFragment extends Fragment implements OnMapReadyCallback
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        //TODO
-        LatLng currentLocation = new LatLng(45.843, 15.963); //TODO
+        if (currentLocation == null) {
+            currentLocation = new LatLng(45.843, 15.963);
+        }
         //TODO googleMap.addTileOverlay(new TileOverlayOptions().tileProvider(new CustomTileProvider(getResources().getAssets())));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 13));
         googleMap.setMyLocationEnabled(true);
-
-        LatLng zagreb = new LatLng(45.843, 15.963);
-        googleMap.addMarker(new MarkerOptions().position(zagreb).title("Zagreb"));
 
         /*TODO
         LatLng zagreb = new LatLng(45.82, 15.98);
@@ -71,6 +82,23 @@ public class MapContainerFragment extends Fragment implements OnMapReadyCallback
         googleMap.addPolyline(new PolylineOptions().add(zagreb).add(gorica));
         */
     }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        lastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                apiClient);
+        if (lastLocation != null) {
+            currentLocation = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        apiClient.connect();
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {}
 
     public class CustomTileProvider implements TileProvider {
 

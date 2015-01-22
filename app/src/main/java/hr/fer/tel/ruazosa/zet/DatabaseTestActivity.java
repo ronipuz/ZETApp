@@ -25,14 +25,16 @@ public class DatabaseTestActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         TextView tb1 = (TextView) findViewById(R.id.text1);
         TextView  tb2 = (TextView) findViewById(R.id.text2);
 
-        Tram tram = new Tram(5);
-        Tram tram2 = new Tram(6);
+        Tram tram = new Tram(5, "Petica", false);
+        Tram tram2 = new Tram(6, "Sestica", false);
 
         RuntimeExceptionDao<Tram, Integer> tramDao = getHelper().getRuntimeTramDao();
         List<Tram> trams;
         tramDao.create(tram);
         tramDao.create(tram2);
+
         trams = tramDao.queryForAll();
+
         tb1.setText(trams.get(0).getIdTram().toString());
         tb2.setText(trams.get(0).getTramNumber().toString());
 
