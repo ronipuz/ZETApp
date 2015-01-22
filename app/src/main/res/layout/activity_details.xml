@@ -1,0 +1,23 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical"
+
+    tools:context="hr.fer.tel.ruazosa.zet.DetailsActivity">
+
+    <Button
+        android:id="@+id/show_map_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/show_map_btn_text"/>
+
+    <FrameLayout
+        android:id="@+id/details_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

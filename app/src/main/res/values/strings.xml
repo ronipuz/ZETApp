@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ZET</string>
+    <string name="title_activity_main">ZET</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
+    <string name="show_lines_btn_text">SHOW LINES</string>
+    <string name="show_stops_btn_text">SHOW STOPS</string>
+    <string name="show_nearby_btn_text">SHOW NEARBY</string>
+    <string name="title_activity_show_lines">LinesActivity</string>
+    <string name="title_activity_show_stops">StopsActivity</string>
+    <string name="title_activity_show_nearby">NearbyActivity</string>
+    <string name="title_activity_departures">DeparturesActivity</string>
+    <string name="title_activity_details">DetailsActivity</string>
+    <string name="title_activity_map">MapActivity</string>
+    <string name="show_map_btn_text">SHOW ON MAP</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
