@@ -3,17 +3,18 @@ package hr.fer.tel.ruazosa.zet;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 
-import hr.fer.tel.ruazosa.data.DatabaseHelper;
+import com.j256.ormlite.dao.RuntimeExceptionDao;
+
+import java.util.List;
+
 import hr.fer.tel.ruazosa.model.Tram;
 
-public class LinesListFragment extends ListFragment {
+public class LinesListFragment extends OrmLiteListFragment {
 
     private static final String TRAM_BUS = "tram_bus";
     private static final String LINE_ID = "lineID";
@@ -22,10 +23,10 @@ public class LinesListFragment extends ListFragment {
 
     public LinesListFragment() {}
 
-    public static LinesListFragment newInstance(String tram_bus) {
+    public static LinesListFragment newInstance(boolean tram_bus) {
         LinesListFragment fragment = new LinesListFragment();
         Bundle args = new Bundle();
-        args.putString(TRAM_BUS, tram_bus);
+        args.putBoolean(TRAM_BUS, tram_bus);
         fragment.setArguments(args);
         return fragment;
     }
@@ -34,15 +35,12 @@ public class LinesListFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ArrayList<Tram> linesList = new ArrayList<>();
+        List<Tram> linesList = null;
 
         if (getArguments() != null) {
-            String tram_bus = getArguments().getString(TRAM_BUS);
-
-            /*TODO dohvat liste linija iz baze
-            for (int i = 0; i < 5; i++) {
-                linesList.add(tram_bus + " " + (i + 1));
-            }*/
+            boolean tram_bus = getArguments().getBoolean(TRAM_BUS);
+            RuntimeExceptionDao<Tram, Integer> lineDao = getHelper().getRuntimeTramDao();
+            linesList = lineDao.queryForEq("tramBus", tram_bus);
         }
 
         setListAdapter(new ArrayAdapter<>(getActivity(),
@@ -59,10 +57,7 @@ public class LinesListFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-
-        //TODO dohvati id-a odabrane linije
-        int lineID = position;
-
+        int lineID = ((Tram) l.getAdapter().getItem(position)).getIdTram();
         showDepartures(position, lineID);
     }
 

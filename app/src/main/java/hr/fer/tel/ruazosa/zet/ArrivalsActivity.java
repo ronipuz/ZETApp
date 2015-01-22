@@ -3,12 +3,12 @@ package hr.fer.tel.ruazosa.zet;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 
-public class DeparturesActivity extends ActionBarActivity {
+public class ArrivalsActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_departures);
+        setContentView(R.layout.activity_arrivals);
 
         if (getResources().getConfiguration().screenWidthDp >= 720) {
             finish();
@@ -17,9 +17,9 @@ public class DeparturesActivity extends ActionBarActivity {
 
         if (savedInstanceState == null) {
 
-            DeparturesFragment departures = new DeparturesFragment();
-            departures.setArguments(getIntent().getExtras());
-            getSupportFragmentManager().beginTransaction().replace(R.id.departures_fragment, departures).commit();
+            ArrivalsFragment arrivals = new ArrivalsFragment();
+            arrivals.setArguments(getIntent().getExtras());
+            getSupportFragmentManager().beginTransaction().replace(R.id.arrivals_fragment, arrivals).commit();
         }
     }
 }

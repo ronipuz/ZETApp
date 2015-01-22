@@ -6,7 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends ActionBarActivity {
+import com.j256.ormlite.dao.RuntimeExceptionDao;
+
+import hr.fer.tel.ruazosa.model.Ride;
+import hr.fer.tel.ruazosa.model.Tram;
+
+public class MainActivity extends OrmLiteActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

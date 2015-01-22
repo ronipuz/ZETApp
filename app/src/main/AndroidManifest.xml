@@ -66,6 +66,10 @@
             android:name=".MapActivity"
             android:label="@string/title_activity_map" >
         </activity>
+        <activity
+            android:name=".ArrivalsActivity"
+            android:label="@string/title_activity_arrivals" >
+        </activity>
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -78,6 +82,7 @@
             android:name=".DatabaseTestActivity"
             android:label="@string/title_activity_database_test" >
         </activity>
+
     </application>
 
 </manifest>

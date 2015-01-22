@@ -7,9 +7,15 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.ArrayList;
+import com.j256.ormlite.dao.RuntimeExceptionDao;
 
-public class DeparturesListFragment extends ListFragment {
+import java.util.ArrayList;
+import java.util.List;
+
+import hr.fer.tel.ruazosa.model.Ride;
+import hr.fer.tel.ruazosa.model.Tram;
+
+public class DeparturesListFragment extends OrmLiteListFragment {
 
     private static final String LINE_ID = "lineID";
     private static final String DEPARTURE_RETURN = "departure_return";
@@ -17,11 +23,11 @@ public class DeparturesListFragment extends ListFragment {
 
     public DeparturesListFragment() {}
 
-    public static DeparturesListFragment newInstance(int lineID, String departure_return) {
+    public static DeparturesListFragment newInstance(int lineID, boolean departure_return) {
         DeparturesListFragment fragment = new DeparturesListFragment();
         Bundle args = new Bundle();
         args.putInt(LINE_ID, lineID);
-        args.putString(DEPARTURE_RETURN, departure_return);
+        args.putBoolean(DEPARTURE_RETURN, departure_return);
         fragment.setArguments(args);
         return fragment;
     }
@@ -30,16 +36,13 @@ public class DeparturesListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ArrayList<String> departuresList = new ArrayList<>();
+        List<Ride> departuresList = null;
 
         if (getArguments() != null) {
-            String departure_return = getArguments().getString(DEPARTURE_RETURN);
+            Boolean departure_return = getArguments().getBoolean(DEPARTURE_RETURN);
             int lineID = getArguments().getInt(LINE_ID);
-
-            //TODO dohvat liste polazaka iz baze
-            for (int i = 0; i < 10; i++) {
-                departuresList.add("linija " + (lineID+1) + " " + departure_return + " " + (i+1));
-            }
+            RuntimeExceptionDao<Ride, Integer> departureDao = getHelper().getRuntimeRideDao();
+            //TODO upit
         }
 
         setListAdapter(new ArrayAdapter<>(getActivity(),

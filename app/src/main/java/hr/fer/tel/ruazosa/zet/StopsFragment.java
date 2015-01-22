@@ -10,11 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class LinesFragment extends Fragment {
+public class StopsFragment extends Fragment {
+
+    public StopsFragment() {}
 
     private FragmentActivity context;
-
-    public LinesFragment() {}
 
     @Override
     public void onAttach(Activity activity) {
@@ -25,19 +25,19 @@ public class LinesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_lines, container, false);
+        return inflater.inflate(R.layout.fragment_stops, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.lines_pager);
+        ViewPager viewPager = (ViewPager) view.findViewById(R.id.stops_pager);
         viewPager.setAdapter(new CustomPagerAdapter());
     }
 
     private class CustomPagerAdapter extends FragmentPagerAdapter {
 
-        private String pageTitles[] = new String[] {"Tram Lines", "Bus Lines"};
+        private String pageTitles[] = new String[] {"Tram Stops", "Bus Stops"};
 
         public CustomPagerAdapter() {
             super(context.getSupportFragmentManager());
@@ -51,9 +51,9 @@ public class LinesFragment extends Fragment {
         @Override
         public Fragment getItem(int position) {
             if (position == 0) {
-                return LinesListFragment.newInstance(false);
+                return StopsListFragment.newInstance(false, false);
             } else {
-                return LinesListFragment.newInstance(true);
+                return StopsListFragment.newInstance(true, false);
             }
         }
 

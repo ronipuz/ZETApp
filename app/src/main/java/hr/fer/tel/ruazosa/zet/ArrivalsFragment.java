@@ -10,18 +10,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class DeparturesFragment extends Fragment {
+public class ArrivalsFragment extends Fragment {
 
-    private static final String LINE_ID = "lineID";
+    private static final String STOP_ID = "stopID";
 
-    private FragmentActivity context;
+    FragmentActivity context;
 
-    public DeparturesFragment() {}
+    public ArrivalsFragment() {}
 
-    public static DeparturesFragment newInstance(int id) {
-        DeparturesFragment fragment = new DeparturesFragment();
+    public static ArrivalsFragment newInstance(int id) {
+        ArrivalsFragment fragment = new ArrivalsFragment();
         Bundle args = new Bundle();
-        args.putInt(LINE_ID, id);
+        args.putInt(STOP_ID, id);
         fragment.setArguments(args);
         return fragment;
     }
@@ -35,28 +35,28 @@ public class DeparturesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_departures, container, false);
+        return inflater.inflate(R.layout.fragment_arrivals, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.departures_pager);
+        ViewPager viewPager = (ViewPager) view.findViewById(R.id.arrivals_pager);
         viewPager.setAdapter(new CustomPagerAdapter());
     }
 
     public int  getShownID() {
         int id = 0;
         if (getArguments() != null) {
-            id = getArguments().getInt(LINE_ID);
+            id = getArguments().getInt(STOP_ID);
         }
         return id;
     }
 
     public class CustomPagerAdapter extends FragmentStatePagerAdapter {
 
-        private String pageTitles[] = new String[]{"Odlasci", "Dolasci"};
+        private String pageTitles[] = new String[]{"1.Smjer", "2.Smjer"};
 
         public CustomPagerAdapter() {
             super(context.getSupportFragmentManager());
@@ -69,15 +69,15 @@ public class DeparturesFragment extends Fragment {
         }
 
         @Override
-        public Fragment getItem(int position) {
-            int lineID = 0;
+        public android.support.v4.app.Fragment getItem(int position) {
+            int stopID = 0;
             if (getArguments() != null) {
-                lineID = getArguments().getInt(LINE_ID);
+                stopID = getArguments().getInt(STOP_ID);
             }
             if (position == 0) {
-                return DeparturesListFragment.newInstance(lineID, false);
+                return ArrivalsListFragment.newInstance(stopID, false);
             } else {
-                return DeparturesListFragment.newInstance(lineID, true);
+                return ArrivalsListFragment.newInstance(stopID, true);
             }
         }
 

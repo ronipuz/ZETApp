@@ -23,14 +23,18 @@ public class Station {
     @DatabaseField(canBeNull = false)
     private Float coordinateY ;
 
+    @DatabaseField(canBeNull = false)
+    private Boolean tramBus;
+
     public Station() {
         //need empty constructor
     }
 
-    public Station(String name, Float coordinateX, Float coordinateY) {
+    public Station(String name, Float coordinateX, Float coordinateY, boolean tramBus) {
         this.name = name;
         this.coordinateX = coordinateX;
         this.coordinateY = coordinateY;
+        this.tramBus = tramBus;
     }
 
     public String getName() {
@@ -49,6 +53,10 @@ public class Station {
         return coordinateY;
     }
 
+    public boolean getTramBus() {
+        return tramBus;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -59,5 +67,9 @@ public class Station {
 
     public void setCoordinateY(Float coordinateY) {
         this.coordinateY = coordinateY;
+    }
+
+    public void setTramBus(boolean tramBus) {
+        this.tramBus = tramBus;
     }
 }

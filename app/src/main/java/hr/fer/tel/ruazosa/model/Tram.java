@@ -59,4 +59,9 @@ public class Tram {
     public void setTramBus(boolean tramBus) {
         this.tramBus = tramBus;
     }
+
+    @Override
+    public String toString() {
+        return tramNumber + " " + tramName;
+    }
 }
