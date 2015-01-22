@@ -32,7 +32,7 @@ public class LinesListFragment extends OrmLiteListFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
         List<Tram> linesList = null;
 
@@ -48,6 +48,7 @@ public class LinesListFragment extends OrmLiteListFragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         View departuresFrame = getActivity().findViewById(R.id.departures_frame);
         dualPane = departuresFrame != null && departuresFrame.getVisibility() == View.VISIBLE;
 
