@@ -1,6 +1,5 @@
 package hr.fer.tel.ruazosa.zet;
 
-import android.app.Fragment;
 import android.content.res.AssetManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -17,21 +16,29 @@ import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.maps.model.Tile;
 import com.google.android.gms.maps.model.TileProvider;
+import com.j256.ormlite.dao.RuntimeExceptionDao;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
-public class MapContainerFragment extends Fragment implements OnMapReadyCallback,
+import hr.fer.tel.ruazosa.model.Station;
+
+public class MapContainerFragment extends OrmLiteAppFragment implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
 
     private static final String DEPARTURE_ID = "departureID";
+    private static final String LINE_STOP = "line_stop";
 
     private GoogleApiClient apiClient;
-    private Location lastLocation;
     private LatLng currentLocation;
+    private List<Station> stationsList = null;
+    private boolean line_stop;
 
     public MapContainerFragment() {}
 
@@ -42,8 +49,12 @@ public class MapContainerFragment extends Fragment implements OnMapReadyCallback
 
         if (getArguments() != null) {
             int departureID = getArguments().getInt(DEPARTURE_ID);
+            line_stop = getArguments().getBoolean(LINE_STOP);
 
-            //TODO dohvat liste polazaka iz baze
+            RuntimeExceptionDao<Station, Integer> stationDao = getHelper().getRuntimeStationDao();
+            //TODO stanice u listi moraju biti poredane na temelju vremena
+            //stationsList = departureDao....
+
         }
 
         apiClient = new GoogleApiClient.Builder(this.getActivity())
@@ -74,18 +85,21 @@ public class MapContainerFragment extends Fragment implements OnMapReadyCallback
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 13));
         googleMap.setMyLocationEnabled(true);
 
-        /*TODO
-        LatLng zagreb = new LatLng(45.82, 15.98);
-        LatLng gorica = new LatLng(45.70,16.07);
-        googleMap.addMarker(new MarkerOptions().position(zagreb).title("Zagreb"));
-        googleMap.addMarker(new MarkerOptions().position(gorica).title("Gorica"));
-        googleMap.addPolyline(new PolylineOptions().add(zagreb).add(gorica));
-        */
+        PolylineOptions options = new PolylineOptions();
+        for (Station s : stationsList) {
+            LatLng position = new LatLng(s.getCoordinateX(), s.getCoordinateY());
+            googleMap.addMarker(new MarkerOptions()
+                    .position(position).title(s.getName()));
+            if(!line_stop) {
+                options.add(position);
+            }
+        }
+        googleMap.addPolyline(options); //TODO provjeriti za null
     }
 
     @Override
     public void onConnected(Bundle bundle) {
-        lastLocation = LocationServices.FusedLocationApi.getLastLocation(
+        Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 apiClient);
         if (lastLocation != null) {
             currentLocation = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());

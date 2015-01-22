@@ -1,13 +1,18 @@
 package hr.fer.tel.ruazosa.zet;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class DetailsFragment extends Fragment {
+import com.j256.ormlite.dao.RuntimeExceptionDao;
+
+import java.util.List;
+
+import hr.fer.tel.ruazosa.model.Ride;
+
+public class DetailsFragment extends OrmLiteFragment {
 
     private static final String DEPARTURE_ID = "departureID";
 
@@ -21,13 +26,16 @@ public class DetailsFragment extends Fragment {
 
         TextView textView = (TextView) rootView.findViewById(R.id.details_text);
 
-        StringBuilder departuresSB = new StringBuilder();
         if (getArguments() != null) {
             int departureID = getArguments().getInt(DEPARTURE_ID);
 
-            //TODO dohvat liste polazaka iz baze
-            for (int i = 0; i < 10; i++) {
-                departuresSB.append("Polazak ").append(departureID+1).append(" ").append(" stanica ").append(i+1).append("\n");
+            List departuresList = null;
+            RuntimeExceptionDao<Ride, Integer> departureDao = getHelper().getRuntimeRideDao();
+            //TODO departuresList = departureDao....
+
+            StringBuilder departuresSB = new StringBuilder();
+            for (Object o : departuresList) { //TODO
+                departuresSB.append(o.toString()).append("\n");
             }
             textView.setText(departuresSB.toString());
         }

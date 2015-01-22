@@ -11,6 +11,7 @@ import android.widget.Button;
 public class DetailsActivity extends ActionBarActivity {
 
     private static final String DEPARTURE_ID = "departureID";
+    private static final String LINE_STOP = "line_stop";
 
     private boolean dualPane;
 
@@ -49,7 +50,10 @@ public class DetailsActivity extends ActionBarActivity {
     private void showMap() {
         if (dualPane) {
             MapContainerFragment mapFragment = new MapContainerFragment();
-            mapFragment.setArguments(getIntent().getExtras());
+            Bundle args = new Bundle();
+            args.putBundle(DEPARTURE_ID, getIntent().getExtras());
+            args.putBoolean(LINE_STOP, false);
+            mapFragment.setArguments(args);
             getFragmentManager().beginTransaction().add(R.id.map_frame, mapFragment).commit();
         } else {
             Button button = (Button) findViewById(R.id.show_map_button);
@@ -60,6 +64,7 @@ public class DetailsActivity extends ActionBarActivity {
                     Intent intent = new Intent();
                     intent.setClass(DetailsActivity.this, MapActivity.class);
                     intent.putExtra(DEPARTURE_ID, getIntent().getExtras().getInt(DEPARTURE_ID));
+                    intent.putExtra(LINE_STOP, false);
                     startActivity(intent);
                 }
             });
