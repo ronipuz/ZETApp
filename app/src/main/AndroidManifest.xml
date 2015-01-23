@@ -83,6 +83,11 @@
             android:label="@string/title_activity_database_test" >
         </activity>
 
+        <service
+            android:name = ".DataBaseService"
+            android:exported = "false"
+            android:enabled = "true"/>
+
     </application>
 
 </manifest>
