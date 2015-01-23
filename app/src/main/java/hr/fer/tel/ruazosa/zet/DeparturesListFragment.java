@@ -59,14 +59,26 @@ public class DeparturesListFragment extends OrmLiteListFragment {
                 for (Ride r : departuresList) {
                     queryBuilderArrival.where().eq("ride_id", r.getIdRide());
                     queryBuilderArrival.orderBy("DATE", true);
-                    Arrival firstArrival = queryBuilderArrival.queryForFirst();
+                    Arrival firstArrival = arrivalDao.queryForFirst(queryBuilderArrival.prepare());
                     queryBuilderArrival.orderBy("DATE",false);
-                    Arrival lastArrival = queryBuilderArrival.queryForFirst();
+                    Arrival lastArrival = arrivalDao.queryForFirst(queryBuilderArrival.prepare());
 
+                    String firstName = "";
+                    String lastName = "";
+                    /*
+                    queryBuilderStop.where().eq("idStation", firstArrival.getStation().getIdStation());
+                    String firstName = stopDao.queryForFirst(queryBuilderStop.prepare()).getName();
+                    queryBuilderStop.where().eq("idStation", lastArrival.getStation().getIdStation());
+                    String lastName = stopDao.queryForFirst(queryBuilderStop.prepare()).getName();
+                    */
+
+                    /*
                     String firstName = queryBuilderStop.where()
-                            .eq("idStation", firstArrival.getStation().getIdStation()).queryForFirst().getName();
+                            .eq("idStation", firstArrival.getStation()).queryForFirst().getName();
                     String lastName = queryBuilderStop.where()
-                            .eq("idStation", lastArrival.getStation().getIdStation()).queryForFirst().getName();
+                            .eq("idStation", lastArrival.getStation()).queryForFirst().getName();
+                    */
+
 
                     finalList.add(new DepartureView(firstArrival.getTime(), firstName, lastName));
                 }
