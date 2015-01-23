@@ -21,31 +21,31 @@ public class Arrival {
     private Date time;
 
     @DatabaseField(foreign = true)
-    private Ride idRide;
+    private Ride ride;
 
     @DatabaseField(foreign = true)
-    private Station idStation;
+    private Station station;
 
     public Arrival() {
         //needs empty constructor
     }
 
-    public Arrival(Date time, Ride idRide, Station idStation) {
+    public Arrival(Date time, Ride ride, Station station) {
         this.time = time;
-        this.idRide = idRide;
-        this.idStation = idStation;
+        this.ride = ride;
+        this.station = station;
     }
 
     public Date getTime() {
         return time;
     }
 
-    public Ride getIdRide() {
-        return idRide;
+    public Ride getRide() {
+        return ride;
     }
 
-    public Station getIdStation() {
-        return idStation;
+    public Station getStation() {
+        return station;
     }
 
     public Integer getIdArrival() {
@@ -56,12 +56,12 @@ public class Arrival {
         this.time = time;
     }
 
-    public void setIdRide(Ride idRide) {
-        this.idRide = idRide;
+    public void setRide(Ride ride) {
+        this.ride = ride;
     }
 
-    public void setIdStation(Station idStation) {
-        this.idStation = idStation;
+    public void setStation(Station station) {
+        this.station = station;
     }
 
     @Override
