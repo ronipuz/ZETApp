@@ -24,6 +24,9 @@ public class MainActivity extends OrmLiteActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = new Intent(this, DataBaseService.class);
+        startService(intent);
+    /*
         //TODO dummy DB
         Tram tram = new Tram(5, "Petica", false);
         Tram tram2 = new Tram(6, "Sestica", false);
@@ -75,7 +78,7 @@ public class MainActivity extends OrmLiteActionBarActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
+    */
 
         Button showLinesButton = (Button) this.findViewById(R.id.show_lines_button);
         showLinesButton.setOnClickListener(new View.OnClickListener() {

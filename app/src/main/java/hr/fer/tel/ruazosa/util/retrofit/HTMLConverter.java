@@ -3,12 +3,15 @@ package hr.fer.tel.ruazosa.util.retrofit;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import hr.fer.tel.ruazosa.model.Tram;
+import hr.fer.tel.ruazosa.util.parser.Detalji;
 import hr.fer.tel.ruazosa.util.parser.Parser;
+import hr.fer.tel.ruazosa.util.parser.Raspored;
 import retrofit.converter.ConversionException;
 import retrofit.converter.Converter;
 import retrofit.mime.TypedInput;
@@ -52,21 +55,24 @@ public class HTMLConverter implements Converter {
 		
 		s.close();
 		
-		if(type.toString().contains("Trams")) {
+		if(type.toString().contains("Tram")) {
 			List<Tram> trams = parser.parseTramLines(htmlSource);
 			return trams;
 		}
-		else {
-			List<Tram> trams = new ArrayList<>();
-			trams.add(new Tram(3, String.valueOf(trams.getClass().toString()), false));
-			//trams.add(new Trams(5, htmlSource));
-			//return text + type.getTypeName();
-			return trams;
+		if(type.toString().contains("Raspored")) {
+			Raspored raspored = parser.parseRaspored(htmlSource);
+			return raspored;
 		}
+		if(type.toString().contains("Detalji")) {
+			Detalji detalji = parser.parseDetalji(htmlSource);
+			return detalji;
+		}
+		
+		return "";
 	}
 	
 	static String convertStreamToString(InputStream is) {
-	    s = new Scanner(is, "UTF-8").useDelimiter("\\A");
+	    s = new Scanner(is, "utf-8").useDelimiter("\\A");
 	    return s.hasNext() ? s.next() : "";
 	}
 

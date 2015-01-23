@@ -78,6 +78,10 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyCKT1paxPoV0mItHNKtiXnJEsnAw_MdKGo" />
 
+        <service
+            android:name = ".DataBaseService"
+            android:exported = "false"
+            android:enabled = "true"/>
     </application>
 
 </manifest>
