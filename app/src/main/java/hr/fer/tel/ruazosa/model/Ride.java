@@ -14,10 +14,8 @@ public class Ride {
     private Integer idRide;
 
     @DatabaseField(foreign = true)
-    private Tram idTram;
+    private Tram tram;
 
-    @DatabaseField(foreign = true)
-    private Arrival idArrival;
 
     @DatabaseField(canBeNull = false)
     private Boolean direction;
@@ -26,13 +24,10 @@ public class Ride {
         return idRide;
     }
 
-    public Tram getIdTram() {
-        return idTram;
+    public Tram getTram() {
+        return tram;
     }
 
-    public Arrival getIdArrival() {
-        return idArrival;
-    }
 
     public Boolean isDirection() {
         return direction;
@@ -42,21 +37,17 @@ public class Ride {
         //needs empty constructor
     }
 
-    public Ride(Tram idTram, Arrival idArrival, Boolean direction) {
-        this.idTram = idTram;
-        this.idArrival = idArrival;
+    public Ride(Tram tram, Boolean direction) {
+        this.tram = tram;
+
         this.direction = direction;
     }
 
-    public void setIdTram(Tram idTram) {
-        this.idTram = idTram;
+    public void setTram(Tram tram) {
+        this.tram = tram;
     }
 
-    public void setIdArrival(Arrival idArrival) {
-        this.idArrival = idArrival;
-    }
-
-    public void setDirection(Boolean direction) {
+        public void setDirection(Boolean direction) {
         this.direction = direction;
     }
 }
