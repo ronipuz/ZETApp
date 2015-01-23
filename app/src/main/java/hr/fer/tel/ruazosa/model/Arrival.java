@@ -17,7 +17,7 @@ public class Arrival {
     @DatabaseField(generatedId = true)
     private Integer idArrival;
 
-    @DatabaseField(columnName = "DATE", dataType = DataType.DATE_STRING, format = "yyyy-MM-dd HH:mm:ss")
+    @DatabaseField(columnName = "DATE", dataType = DataType.DATE_LONG, format = "yyyy-MM-dd HH:mm:ss")
     private Date time;
 
     @DatabaseField(foreign = true)

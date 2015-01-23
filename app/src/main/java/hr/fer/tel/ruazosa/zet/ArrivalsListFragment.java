@@ -7,7 +7,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.j256.ormlite.stmt.QueryBuilder;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import hr.fer.tel.ruazosa.model.Arrival;
@@ -40,7 +42,18 @@ public class ArrivalsListFragment extends OrmLiteListFragment {
             Boolean direction = getArguments().getBoolean(DIRECTION);
             int stopID = getArguments().getInt(STOP_ID);
             RuntimeExceptionDao<Arrival, Integer> arrivalDao = getHelper().getRuntimeArrivalDao();
+
             //TODO arrivalsList = arrivalDao....
+            /*
+            QueryBuilder<Arrival, Integer> queryBuilderArrival = arrivalDao.queryBuilder();
+            try {
+                queryBuilderArrival.where().eq("station", stopID).and().gt("DATE", System.currentTimeMillis() % 1000);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            PreparedQuery<Arrival> preparedQuery = null;
+            */
         }
 
         setListAdapter(new ArrayAdapter<>(getActivity(),

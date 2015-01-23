@@ -53,17 +53,17 @@ public class MainActivity extends OrmLiteActionBarActivity {
         Ride ride4 = new Ride(tram4,true );
         RuntimeExceptionDao<Ride, Integer> rideDao = getHelper().getRuntimeRideDao();
         rideDao.delete(rideDao.queryForAll());
-        /*rideDao.create(ride);
+        rideDao.create(ride);
         rideDao.create(ride2);
         rideDao.create(ride3);
-        rideDao.create(ride4);*/
+        rideDao.create(ride4);
 
         RuntimeExceptionDao<Arrival, Integer> arrivalDao = getHelper().getRuntimeArrivalDao();
         arrivalDao.delete(arrivalDao.queryForAll());
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             Date d = format.parse("2015-10-13 12:21:22");
-            /*arrivalDao.create(new Arrival(format.parse("2015-10-13 12:21:22"),ride,station));
+            arrivalDao.create(new Arrival(format.parse("2015-10-13 12:21:22"),ride,station));
             arrivalDao.create(new Arrival(format.parse("2015-10-13 12:32:22"),ride ,station2));
             arrivalDao.create( new Arrival(format.parse("2015-10-13 12:57:22"),ride ,station3));
             arrivalDao.create( new Arrival(format.parse("2015-10-13 12:21:22"),ride2, station));
@@ -71,7 +71,7 @@ public class MainActivity extends OrmLiteActionBarActivity {
             arrivalDao.create( new Arrival(format.parse("2015-10-13 12:57:22"), ride2, station4));
             arrivalDao.create( new Arrival(format.parse("2015-10-13 12:21:22"),ride3, station2));
             arrivalDao.create( new Arrival(format.parse("2015-10-13 12:32:22"),ride3 ,station3));
-            arrivalDao.create( new Arrival(format.parse("2015-10-13 12:57:22"), ride3, station4));*/
+            arrivalDao.create( new Arrival(format.parse("2015-10-13 12:57:22"), ride3, station4));
         } catch (ParseException e) {
             e.printStackTrace();
         }

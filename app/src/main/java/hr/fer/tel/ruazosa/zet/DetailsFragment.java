@@ -7,10 +7,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.j256.ormlite.stmt.QueryBuilder;
 
+import java.sql.SQLException;
 import java.util.List;
 
+import hr.fer.tel.ruazosa.model.Arrival;
 import hr.fer.tel.ruazosa.model.Ride;
+import hr.fer.tel.ruazosa.model.Station;
 
 public class DetailsFragment extends OrmLiteFragment {
 
@@ -29,13 +33,25 @@ public class DetailsFragment extends OrmLiteFragment {
         if (getArguments() != null) {
             int departureID = getArguments().getInt(DEPARTURE_ID);
 
-            List departuresList = null;
-            RuntimeExceptionDao<Ride, Integer> departureDao = getHelper().getRuntimeRideDao();
-            //TODO departuresList = departureDao....
+            RuntimeExceptionDao<Arrival, Integer> arrivalDao = getHelper().getRuntimeArrivalDao();
+            RuntimeExceptionDao<Station, Integer> stopDao = getHelper().getRuntimeStationDao();
+
+            List<Arrival> arrivalList = arrivalDao.queryForEq("ride_id", departureID);
+
+            List<DetailView> finalList = null;
+            QueryBuilder<Station, Integer> queryBuilderStop = stopDao.queryBuilder();
+            try {
+                for (Arrival a : arrivalList) {
+                    String stopName = queryBuilderStop.where().eq("idStation", a.getStation().getIdStation()).queryForFirst().getName();
+                    finalList.add(new DetailView(a.getTime(), stopName));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
             StringBuilder departuresSB = new StringBuilder();
-            for (Object o : departuresList) { //TODO
-                departuresSB.append(o.toString()).append("\n");
+            for (DetailView v : finalList) {
+                departuresSB.append(v.toString()).append("\n");
             }
             textView.setText(departuresSB.toString());
         }
