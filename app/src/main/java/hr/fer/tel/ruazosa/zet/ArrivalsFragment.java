@@ -14,7 +14,7 @@ public class ArrivalsFragment extends Fragment {
 
     private static final String STOP_ID = "stopID";
 
-    FragmentActivity context;
+    private FragmentActivity context;
 
     public ArrivalsFragment() {}
 
@@ -69,7 +69,7 @@ public class ArrivalsFragment extends Fragment {
         }
 
         @Override
-        public android.support.v4.app.Fragment getItem(int position) {
+        public Fragment getItem(int position) {
             int stopID = 0;
             if (getArguments() != null) {
                 stopID = getArguments().getInt(STOP_ID);

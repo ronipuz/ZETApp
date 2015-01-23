@@ -7,7 +7,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.j256.ormlite.stmt.PreparedQuery;
+import com.j256.ormlite.stmt.QueryBuilder;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import hr.fer.tel.ruazosa.model.Ride;
@@ -39,7 +42,26 @@ public class DeparturesListFragment extends OrmLiteListFragment {
             Boolean departure_return = getArguments().getBoolean(DEPARTURE_RETURN);
             int lineID = getArguments().getInt(LINE_ID);
             RuntimeExceptionDao<Ride, Integer> departureDao = getHelper().getRuntimeRideDao();
+
             //TODO departuresList = departureDao....
+            /*QueryBuilder<Ride, Integer> queryBuilderRide = departureDao.queryBuilder();
+            try {
+                queryBuilderRide.where().eq("direction", departure_return);
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            PreparedQuery<Ride> preparedQuery = null;
+            departuresList = departureDao.query(preparedQuery);
+            */
+            QueryBuilder<Ride, Integer> queryBuilderRide = departureDao.queryBuilder();
+            try {
+                queryBuilderRide.where().eq("tram_id", lineID).and().eq("direction", departure_return);
+                departuresList = departureDao.query(queryBuilderRide.prepare());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         setListAdapter(new ArrayAdapter<>(getActivity(),

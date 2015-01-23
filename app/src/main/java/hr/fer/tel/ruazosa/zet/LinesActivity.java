@@ -4,7 +4,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.SearchView;
 
 public class LinesActivity extends ActionBarActivity {
 
@@ -17,9 +16,6 @@ public class LinesActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_show_lines, menu);
-
-        //TODO SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-
         return true;
     }
 

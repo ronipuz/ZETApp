@@ -15,7 +15,7 @@ public class ArrivalsActivity extends ActionBarActivity {
             return;
         }
 
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null) { //TODO ?
 
             ArrivalsFragment arrivals = new ArrivalsFragment();
             arrivals.setArguments(getIntent().getExtras());
