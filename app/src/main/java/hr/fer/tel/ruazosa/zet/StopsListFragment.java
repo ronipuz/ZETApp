@@ -24,8 +24,8 @@ public class StopsListFragment extends OrmLiteListFragment {
 
     public StopsListFragment() {}
 
-    public static LinesListFragment newInstance(boolean tram_bus, boolean sort) {
-        LinesListFragment fragment = new LinesListFragment();
+    public static StopsListFragment newInstance(boolean tram_bus, boolean sort) {
+        StopsListFragment fragment = new StopsListFragment();
         Bundle args = new Bundle();
         args.putBoolean(TRAM_BUS, tram_bus);
         args.putBoolean(SORT, sort);

@@ -10,9 +10,10 @@
     tools:context="hr.fer.tel.ruazosa.zet.LinesActivity" >
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="0px"
         android:layout_height="fill_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_weight="1">
 
         <Button
             android:id="@+id/stops_map_button"
@@ -24,8 +25,7 @@
             class="hr.fer.tel.ruazosa.zet.StopsFragment"
             android:id="@+id/stops_fragment"
             android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_weight="1"/>
+            android:layout_height="0px"/>
 
     </LinearLayout>
 

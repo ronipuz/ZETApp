@@ -34,6 +34,7 @@ public class MapContainerFragment extends OrmLiteAppFragment implements OnMapRea
 
     private static final String DEPARTURE_ID = "departureID";
     private static final String LINE_STOP = "line_stop";
+    private static final String TRAM_BUS = "tram_bus";
 
     private GoogleApiClient apiClient;
     private LatLng currentLocation;
@@ -50,11 +51,15 @@ public class MapContainerFragment extends OrmLiteAppFragment implements OnMapRea
         if (getArguments() != null) {
             int departureID = getArguments().getInt(DEPARTURE_ID);
             line_stop = getArguments().getBoolean(LINE_STOP);
+            boolean tram_bus = getArguments().getBoolean(TRAM_BUS);
 
             RuntimeExceptionDao<Station, Integer> stationDao = getHelper().getRuntimeStationDao();
-            //TODO stanice u listi moraju biti poredane na temelju vremena
-            //stationsList = departureDao....
-
+            if(line_stop) { //TODO
+                stationsList = stationDao.queryForEq("tramBus", tram_bus);
+            } else {
+                //TODO stanice u listi moraju biti poredane na temelju vremena
+                //stationsList = departureDao....
+            }
         }
 
         apiClient = new GoogleApiClient.Builder(this.getActivity())
